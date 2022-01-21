@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Caratlane
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Caratlane.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.Caratlane.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to any file if you wish to upgrade this extension
+ * version in the future.
+ *
+ * @category    Caratlane
+ * @package     Caratlane_NetSuite
+ * @copyright   Copyright (c) Caratlane (https://www.Caratlane.com/)
+ * @license     https://www.Caratlane.com/LICENSE.txt
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/nsapi/create-shipment" method="POST">
+        <service class="Caratlane\NetSuite\Api\CreateShipmentInterface" method="createNewShipment"/>
+        <resources>
+            <resource ref="Magento_Sales::sales"/>
+        </resources>
+    </route>
+    <route url="/V1/nsapi/order-update" method="POST">
+        <service class="Caratlane\NetSuite\Api\OrderUpdateInterface" method="getOrderUpdate"/>
+        <resources>
+            <resource ref="Magento_Sales::sales"/>
+        </resources>
+    </route>
+    <route url="/V1/nsapi/update-invoice-pdf" method="POST">
+        <service class="Caratlane\NetSuite\Api\UpdateInvoicePdfInterface" method="updateInvoicePdf"/>
+        <resources>
+            <resource ref="Magento_Sales::sales"/>
+        </resources>
+    </route>
+    <route url="/V1/nsapi/create-product" method="POST">
+        <service class="Caratlane\NetSuite\Api\CreateProductInterface" method="createProduct"/>
+        <resources>
+            <resource ref="Magento_Sales::sales"/>
+        </resources>
+    </route>
+</routes>

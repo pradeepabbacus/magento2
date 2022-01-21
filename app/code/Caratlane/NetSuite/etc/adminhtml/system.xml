@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author 18th DigiTech Team
+ * @copyright Copyright (c) 2020 18th DigiTech (https://www.18thdigitech.com)
+ * @package Caratlane_NetSuite
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="caratlane" translate="label" sortOrder="400">
+            <label>Caratlane</label>
+        </tab>
+        <section id="netsuite" translate="label" type="button" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>NetSuite</label>
+            <tab>caratlane</tab>
+            <resource>Caratlane_NetSuite::config</resource>
+				<group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>General</label>
+					<field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enable</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					</field>
+			   </group>
+			    <group id="apidetail" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+				   showInStore="1">
+				<label>API details</label>
+				
+				
+				<field id="oauth_realm" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>OAuth Realm</label>
+				</field>
+				
+				<field id="oauth_consumer_key" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>OAuth Consumer Key</label>
+				</field>
+				<field id="oauth_consumer_secret" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>OAuth Consumer Secret</label>
+				</field>								
+				
+				<field id="oauth_token" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>OAuth Token</label>
+				</field>
+				<field id="oauth_token_secret" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>OAuth Secret</label>
+				</field>
+				<field id="script" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>Script</label>
+				</field>
+				
+			 </group>
+			   <group id="cronScheduled" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+				   showInStore="1">
+				<label>Push Orders</label>
+				<field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enable</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					</field>
+		    	<field id="api_url" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					   <label>API Url Key</label>
+				</field>
+				
+				<field id="netsuite_count_from" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>NetSuite Count From Days</label>
+					<comment>Order collection from last dayes</comment>
+				</field>
+				<field id="netsuite_max_attempt" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>NetSuite Max Attempt</label>
+					<comment>Order re-schedule Max fail to push</comment>
+				</field>
+			
+				<field id="frequency" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>Frequency</label>
+					<source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+					<backend_model>Caratlane\NetSuite\Model\Config\CronConfig</backend_model>
+				</field>
+				<field id="time" translate="label comment" sortOrder="5" type="time" showInDefault="1" showInWebsite="1"
+					   showInStore="1">
+					<label>Start Time</label>
+				</field>
+			 </group>
+			 <group id="setCreateShipmentsFrequency" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+				   showInStore="1">
+				<label>Create Shipments</label>
+				<field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enable</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					</field>
+			</group>			 
+			<group id="setOrdersUpdateFrequency" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+				   showInStore="1">
+				<label>Orders Update</label>
+				<field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enable</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					</field>
+			</group>
+			<group id="setUpdateInvoicepdfFrequency" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+				   showInStore="1">
+				<label>Update Inovice PDF</label>
+				<field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Enable</label>
+						<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					</field>
+			</group>
+
+        </section>
+    </system>
+</config>

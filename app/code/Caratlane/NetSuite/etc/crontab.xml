@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author 18th DigiTech Team
+ * @copyright Copyright (c) 2020 18th DigiTech (https://www.18thdigitech.com)
+ * @package Caratlane_NetSuite
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+     <group id="netsuite_push_orders">
+          <job instance="Caratlane\NetSuite\Cron\PushSalesOrder" method="execute" name="netsuite_push_orders">
+               <schedule>* * * * *</schedule>
+          </job>
+     </group>
+     <group id="netsuite_clear_logs">
+		<job instance="Caratlane\NetSuite\Cron\ClearLogs" method="execute" name="netsuite_logs_clear">
+			<schedule>0 */12 * * *</schedule>
+		</job>
+	</group>
+    
+</config>

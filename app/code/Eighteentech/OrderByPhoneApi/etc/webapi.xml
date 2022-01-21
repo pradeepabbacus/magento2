@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @category   Eighteentech
+* @package    Eighteentech_OrderByPhoneApi
+* @author     https://www.18thdigitech.com/
+*/
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+  
+  <!--GET API Start-->
+  <route method="GET" url="/V1/orders/byphone">
+    <service class="Eighteentech\OrderByPhoneApi\Api\OrderManagementInterface" method="getOrderback"/>
+    <resources>
+      <resource ref="anonymous"/>
+    </resources>
+  </route>
+</routes>

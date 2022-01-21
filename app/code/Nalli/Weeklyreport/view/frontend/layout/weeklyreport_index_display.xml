@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+ /**
+  * Weekly Report
+  *
+  * Copyright (c) 2021. 18th DigiTech Team. All rights reserved.
+  * @author: <mailto:info@18thdigitech.com>
+  * @package Nalli_Weeklyreport
+  */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <title>Weekly Report</title>
+        <css src="Nalli_Weeklyreport::css/weeklyreport.css" />
+        <css src="Nalli_Weeklyreport::css/jquery-ui.css" />
+        <link src="Nalli_Weeklyreport::js/jquery.lazy.min.js"/>
+        <link src="Nalli_Weeklyreport::js/jquery.lazy.plugins.min.js"/>
+        <link src="Nalli_Weeklyreport::js/jquery-ui.js"/>
+    </head>
+    <referenceContainer name="content">
+        <block class="Nalli\Weeklyreport\Block\Display" name="weeklyreport" template="Nalli_Weeklyreport::index_display.phtml" cacheable="false" />
+    </referenceContainer>
+</page>

@@ -1,0 +1,39 @@
+    .main-container.col1-layout {
+        max-width: 100% !important;
+        background-color: #eee;
+    }
+    .date-select.date-select-report {
+        width: 600px;
+        padding: 25px 40px;
+    }
+    .date-select-container {
+        float: left;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .date-select-subtitle {
+        color: #333;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+    .date-select-item {
+        margin-bottom: 10px;
+        float: left;
+        width: 100%;
+    }
+    .date-select-item span {
+        float: left;
+    }
+    .datacontainer .date-select-item a {
+        color: #a5181c !important;
+        text-transform: none;
+        font-size: 13px;
+        margin-left: 12px !important;
+        float: left;
+    }
+    .main-container.col1-layout {
+
+        max-width: 100% !important;
+        background-color: #eee;
+
+    }

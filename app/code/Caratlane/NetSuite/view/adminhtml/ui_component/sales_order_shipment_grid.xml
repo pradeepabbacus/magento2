@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Caratlane
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Caratlane.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.Caratlane.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to any file if you wish to upgrade this extension
+ * version in the future.
+ *
+ * @category    Caratlane
+ * @package     Caratlane_NetSuite
+ * @copyright   Copyright (c) Caratlane (https://www.Caratlane.com/)
+ * @license     https://www.Caratlane.com/LICENSE.txt
+ */
+-->
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="sales_order_shipment_columns">
+        
+        <column name="ns_fulfillment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Fulfillment ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ns_fulfillment_number">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Fulfillment Number</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ns_tracking_number">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Tracking Number</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ns_shipping_carrier">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Shipping Carrier</item>
+                </item>
+            </argument>
+        </column><column name="ns_shipped_date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Shipping Date</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ns_delivery_status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Delivery Status</item>
+                </item>
+            </argument>
+        </column>
+         <column name="ns_invoice_url" class="Caratlane\NetSuite\Ui\Component\Listing\Column\ViewInvoiceUrl">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">false</item>
+                    <item name="sorting" xsi:type="string">false</item>
+                    <item name="label" xsi:type="string" translate="true">Invoice URL</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

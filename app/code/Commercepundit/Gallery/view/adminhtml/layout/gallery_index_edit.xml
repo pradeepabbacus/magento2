@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright Copyright (c) 2016 www.magebuzz.com
+ */
+-->
+<page layout="admin-2columns-left" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Commercepundit\Gallery\Block\Adminhtml\Gallery\Edit" name="gallery.block.content"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Commercepundit\Gallery\Block\Adminhtml\Gallery\Edit\Tabs" name="gallery_edit_tabs">
+                <block class="Commercepundit\Gallery\Block\Adminhtml\Gallery\Edit\Tab\Mainform" name="gallery_edit_tab_mainform"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">gallery_edit_tab_mainform</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

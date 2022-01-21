@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Caratlane
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Caratlane.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.Caratlane.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to any file if you wish to upgrade this extension
+ * version in the future.
+ *
+ * @category    Caratlane
+ * @package     Caratlane_NetSuite
+ * @copyright   Copyright (c) Caratlane (https://www.Caratlane.com/)
+ * @license     https://www.Caratlane.com/LICENSE.txt
+ */
+--> 
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+   <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">netSuite_trackshipments_listing.netSuite_trackshipments_listing_data_source</item>
+            <item name="deps" xsi:type="string">netSuite_trackshipments_listing.netSuite_trackshipments_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">spinner_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="viewlogs" xsi:type="array">
+               <item name="name" xsi:type="string">viewlogs</item>
+               <item name="label" xsi:type="string">View Logs</item>
+               <item name="class" xsi:type="string">primary</item>
+               <item name="url" xsi:type="string">caratlane/logviewer/index</item>
+            </item>
+            <item name="clearshipmenthistory" xsi:type="array">
+               <item name="name" xsi:type="string">clearhistory</item>
+               <item name="label" xsi:type="string">Clear History</item>
+               <item name="class" xsi:type="string">primary</item>
+               <item name="url" xsi:type="string">caratlane/netsuite/cleartrackshipmentshistory</item>
+               <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Delete Image(s)</item>
+                    <item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
+                </item>
+            </item>
+        </item>  
+    </argument>
+    <dataSource name="nameOfDataSource">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">netSuite_trackshipments_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+      <argument name="data" xsi:type="array">
+          <item name="config" xsi:type="array">
+              <item name="template" xsi:type="string">ui/grid/toolbar</item>
+          </item>
+      </argument>
+      <massaction name="listing_massaction">
+        <argument name="data" xsi:type="array">
+          <item name="data" xsi:type="array">
+             <item name="selectProvider" xsi:type="string">netSuite_trackshipments_listing.netSuite_trackshipments_listing.spinner_columns.ids</item>       
+             <item name="displayArea" xsi:type="string">bottom</item>
+             <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+             <item name="indexField" xsi:type="string">entity_id</item>
+          </item> 
+        </argument> 
+          <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="caratlane/netsuite/trackshipmentsmassdelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Image(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+          </massaction>
+          <filters name="listing_filters">
+              <argument name="data" xsi:type="array">
+                  <item name="config" xsi:type="array">
+                      <item name="templates" xsi:type="array">
+                          <item name="filters" xsi:type="array">
+                              <item name="select" xsi:type="array">
+                                  <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                  <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                              </item>
+                          </item>
+                      </item>
+                  </item>
+              </argument>
+          </filters>
+          <bookmark name="bookmarks" />
+          <component name="columns_controls" />
+          <exportButton name="export_button" />
+          <paging name="listing_paging" />
+      </container>
+    <columns name="spinner_columns">
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="fulfillment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Fulfillment ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="fulfillment_number">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Fulfillment Number</item>
+                </item>
+            </argument>
+        </column>
+        <column name="delivery_status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Delivery Status</item>
+                </item>
+            </argument>
+        </column>
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                </item>
+            </argument>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Created</item>
+                </item>
+            </argument>
+        </column>
+        <column name="messages">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Messages</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

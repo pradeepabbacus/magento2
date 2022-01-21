@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author 18th DigiTech Team
+ * @copyright Copyright (c) 2020 18th DigiTech (https://www.18thdigitech.com)
+ * @package Caratlane_NetSuite
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <preference for="Caratlane\NetSuite\Api\CreateShipmentInterface" type="Caratlane\NetSuite\Model\Shipment\CreateShipment" />
+    <preference for="Caratlane\NetSuite\Api\UpdateInvoicePdfInterface" type="Caratlane\NetSuite\Model\Shipment\UpdatePdf" />
+    <preference for="Caratlane\NetSuite\Api\CreateProductInterface" type="Caratlane\NetSuite\Model\Product\CreateProduct" />
+    <preference for="Caratlane\NetSuite\Api\OrderUpdateInterface" type="Caratlane\NetSuite\Model\Order\OrderUpdate" />
+    
+    <preference for="Magento\Sales\Model\Order\Payment\State\CaptureCommand" type="Caratlane\NetSuite\Model\Order\Payment\State\CaptureCommand" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="netSuite_create_shipments_listing_data_source" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetsuiteShipments\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="netSuite_updateinvoicepdf_listing_data_source" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetsuiteUpdateinvoicepdf\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Caratlane\NetSuite\Model\ResourceModel\NetsuiteShipments\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">netsuite_shipments</argument>
+            <argument name="resourceModel" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetsuiteShipments</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Caratlane\NetSuite\Model\ResourceModel\NetsuiteUpdateinvoicepdf\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">netsuite_invoice_pdf</argument>
+            <argument name="resourceModel" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetsuiteUpdateinvoicepdf</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="netSuite_trackshipments_listing_data_source" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetSuiteTrackShipments\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Caratlane\NetSuite\Model\ResourceModel\NetSuiteTrackShipments\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">netsuite_track_shipments</argument>
+            <argument name="resourceModel" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetSuiteTrackShipments</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="netSuite_orderupdate_listing_data_source" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetSuiteOrdersUpdate\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Caratlane\NetSuite\Model\ResourceModel\NetSuiteOrdersUpdate\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">netsuite_order_update</argument>
+            <argument name="resourceModel" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetSuiteOrdersUpdate</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="netsuite_order_log_listing_data_source" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetSuite\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Caratlane\NetSuite\Model\ResourceModel\NetSuite\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">netsuite_orders</argument>
+            <argument name="resourceModel" xsi:type="string">Caratlane\NetSuite\Model\ResourceModel\NetSuite</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid" type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="netsuite_id" xsi:type="string">sales_order.netsuite_id</item>
+                <item name="netsuite_max_attempt" xsi:type="string">sales_order.netsuite_max_attempt</item>
+                <item name="push_to_netsuite" xsi:type="string">sales_order.push_to_netsuite</item>
+                <item name="netsuite_created_at" xsi:type="string">sales_order.netsuite_created_at</item>
+                <item name="netsuite_order_status" xsi:type="string">sales_order.netsuite_order_status</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Shipment\Grid" type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="ns_fulfillment_id" xsi:type="string">sales_shipment.ns_fulfillment_id</item>
+                <item name="ns_fulfillment_number" xsi:type="string">sales_shipment.ns_fulfillment_number</item>
+                <item name="ns_tracking_number" xsi:type="string">sales_shipment.ns_tracking_number</item>
+                <item name="ns_shipping_carrier" xsi:type="string">sales_shipment.ns_shipping_carrier</item>
+                <item name="ns_shipped_date" xsi:type="string">sales_shipment.ns_shipped_date</item>
+                <item name="ns_delivery_status" xsi:type="string">sales_shipment.ns_delivery_status</item>
+                <item name="ns_invoice_url" xsi:type="string">sales_shipment.ns_invoice_url</item>
+            </argument>
+        </arguments>                                                     
+    </virtualType>
+</config>

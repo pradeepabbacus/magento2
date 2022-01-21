@@ -1,0 +1,25 @@
+<?php 
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Eighteentech\Showaddressoncart\Block\Customeraddress */
+
+$isLoggedIn = $block->isLoggedIn();
+if($isLoggedIn){
+	$getCustomerId = $block->getCustomerId();
+	$billingAddress = $block->getDefaultBillingAddress($getCustomerId);
+	$defaultbillingAddress = $block->getDefaultBillingAddressHtml($billingAddress); ?>
+	<div class="customeraddress-cart">
+	<?php
+	echo $block->escapeHtml(__('Deliver to: '));
+	echo $defaultbillingAddress;
+?>
+<a href="<?php echo $this->getUrl('').'checkout/#shipping'; ?>" title="<?php echo $block->escapeHtml(__('Change address')); ?>" name="<?php echo $block->escapeHtml(__('Change address')); ?>">
+<button type="button" class="action primary">
+    <span data-bind="i18n: 'Change address'"><?php echo $block->escapeHtml(__('Change address')); ?></span>
+</button>
+</a>
+</div>
+<?php } ?>

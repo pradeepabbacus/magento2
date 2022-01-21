@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * dependency injection
+ *
+ * Copyright (c) 2021. 18th DigiTech Team. All rights reserved.
+ * @author  18th Digitech <info@18thdigitech.com>
+ * @package Eighteentech_MultipleCartDelete
+ */
+-->
+
+<config>
+  <type name="Magento\Checkout\Block\Cart\AbstractCart">
+    <plugin name="multiple-cart-delete" type="Eighteentech\MultipleCartDelete\Plugin\AbstractCart" sortOrder="1" />
+  </type>
+  <preference for="Magento\Checkout\Controller\Cart\UpdatePost" type="Eighteentech\MultipleCartDelete\Controller\Cart\UpdatePost" />
+</config>

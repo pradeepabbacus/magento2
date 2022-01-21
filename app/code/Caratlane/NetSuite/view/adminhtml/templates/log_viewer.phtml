@@ -1,0 +1,105 @@
+<?php
+$dates = $block->getDates();
+$logs = $block->getLogs();
+?>
+<div id="logviewer">
+<form method ="get">
+<h3><?= $block->escapeHtml(__('Default log location')); ?>: netsuite/</h3>
+<div class="filters">
+    <div class="select_date logviewer-cols">
+        <label for="date"><strong><?= $block->escapeHtml(__('Date')); ?>:</strong></label>
+        <select class="date" id="date" name="date" onchange="this.form.submit()">
+            <?php foreach ($dates as $date) { ?>
+                <?php if ($date['selected']) { $selected = "selected";
+                } else { $selected = ""; } ?>
+            <option value="<?= $block->escapeHtml($date['date']) ?>" <?= $block->escapeHtml($selected); ?>>
+                <?= $block->escapeHtml($date['date']) ?>
+            </option>
+            <?php } ?>
+        </select>
+    </div>
+    <div class="select_logs logviewer-cols">
+        <label for="logfile"><strong><?= $block->escapeHtml(__('Log')); ?>:</strong></label>
+        <select class="logfile" id="logfile" name="logfile" onchange="this.form.submit()">
+            <option value=""><?= $block->escapeHtml(__('--select log--')); ?></option>
+            <?php foreach ($logs as $log) { ?>
+                <?php if ($log['selected']) { $selected = "selected";
+                } else { $selected = ""; } ?>
+            <option value="<?= $block->escapeHtml($log['log']) ?>" <?= $block->escapeHtml($selected); ?>>
+                <?= $block->escapeHtml($log['log']) ?>
+            </option>
+            <?php } ?>
+        </select>
+    </div>
+    <div class="action-buttons logviewer-cols">
+        <button id="refresh-logs" type="button" class="action- scalable primary" onclick ="this.form.submit()">
+            <span><?= $block->escapeHtml(__('Refresh Logs')); ?></span>
+        </button>
+        <button id="clear-logs" type="button" class="action- scalable primary">
+            <span><?= $block->escapeHtml(__('Clear Logs')); ?></span>
+        </button>
+        <button id="download-logs" type="button" class="action- scalable primary">
+            <span><?= $block->escapeHtml(__('Download Logs')); ?></span>
+        </button>
+    </div>
+</div>
+<div style="border: 4px solid #dfdfdf; overflow: hidden; height: 700px; padding: 2px; clear: both; margin-top: 20px;">
+ <div id="log_data" class="qb_log" style="width:100%;height:690px;overflow:scroll;margin:0;
+ padding:3px;background:#111111;color:white;
+    font:normal 12px Lucida Console, Courier New, serif;">
+    <?= $block->escapeHtml($block->getLogFileContent()); ?>
+ </div>
+</div>
+</form>
+</div>
+<script>
+require([
+    'jquery',
+    'Magento_Ui/js/modal/confirm'
+],
+function($, confirmation) {
+    $('#download-logs').on('click', function (e){
+        e.preventDefault();
+        confirmation({
+            title: 'Alert',
+            content: 'Do you want to download log file?',
+            actions: {
+                confirm: function () {
+                    location.href = "<?= $block->escapeHtml($block->getDownloadLogsUrl()); ?>";
+                },
+                cancel: function () {
+                    return false;
+                }
+            }
+        });
+    });
+    $('#clear-logs').on('click', function (e){
+        e.preventDefault();
+        confirmation({
+            title: 'Alert',
+            content: 'Do you want to clear log file?',
+            actions: {
+                confirm: function () {
+                    location.href = "<?= $block->escapeHtml($block->getClearLogsUrl()); ?>";
+                },
+                cancel: function () {
+                    return false;
+                }
+            }
+        });
+    });
+});
+</script>
+<style>
+.logviewer-cols{
+    display: inline-block;
+    margin-right: 30px;
+}
+#logviewer select{
+    padding: 5px 15px;
+    min-width: 200px;
+}
+button#refresh-logs, button#clear-logs {
+    margin-right: 30px;
+}
+</style>

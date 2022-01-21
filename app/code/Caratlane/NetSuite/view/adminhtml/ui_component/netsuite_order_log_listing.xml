@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author 18th DigiTech Team
+ * @copyright Copyright (c) 2020 18th DigiTech (https://www.18thdigitech.com)
+ * @package Caratlane_NetSuite
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">netsuite_order_log_listing.netsuite_order_log_listing_data_source</item>
+            <item name="deps" xsi:type="string">netsuite_order_log_listing.netsuite_order_log_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">spinner_columns</item>
+        <item name="buttons" xsi:type="array">
+        <item name="viewlogs" xsi:type="array">
+           <item name="name" xsi:type="string">viewlogs</item>
+           <item name="label" xsi:type="string">View Logs</item>
+           <item name="class" xsi:type="string">primary</item>
+           <item name="url" xsi:type="string">caratlane/logviewer/index</item>
+        </item>
+        <item name="clearhistory" xsi:type="array">
+           <item name="name" xsi:type="string">clearhistory</item>
+           <item name="label" xsi:type="string">Clear History</item>
+           <item name="class" xsi:type="string">primary</item>
+           <item name="url" xsi:type="string">caratlane/netsuite/clearhistory</item>
+           <item name="confirm" xsi:type="array">
+				<item name="title" xsi:type="string" translate="true">Delete Image(s)</item>
+				<item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
+			</item>
+        </item>
+     </item> 
+    </argument>
+    <dataSource name="nameOfDataSource">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">netsuite_order_log_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+     <container name="listing_top">
+      <argument name="data" xsi:type="array">
+          <item name="config" xsi:type="array">
+              <item name="template" xsi:type="string">ui/grid/toolbar</item>
+          </item>
+      </argument>
+      <massaction name="listing_massaction">
+        <argument name="data" xsi:type="array">
+          <item name="data" xsi:type="array">
+             <item name="selectProvider" xsi:type="string">netsuite_order_log_listing.netsuite_order_log_listing.spinner_columns.ids</item>       
+             <item name="displayArea" xsi:type="string">bottom</item>
+             <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+             <item name="indexField" xsi:type="string">entity_id</item>
+          </item> 
+        </argument> 
+      <action name="delete">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="type" xsi:type="string">delete</item>
+					<item name="label" xsi:type="string" translate="true">Delete</item>
+					<item name="url" xsi:type="url" path="*/*/massDelete"/>
+					<item name="confirm" xsi:type="array">
+						<item name="title" xsi:type="string" translate="true">Delete Image(s)</item>
+						<item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
+					</item>
+				</item>
+			</argument>
+		</action>
+      </massaction>
+      <filters name="listing_filters">
+          <argument name="data" xsi:type="array">
+              <item name="config" xsi:type="array">
+                  <item name="templates" xsi:type="array">
+                      <item name="filters" xsi:type="array">
+                          <item name="select" xsi:type="array">
+                              <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                              <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                          </item>
+                      </item>
+                  </item>
+              </item>
+          </argument>
+      </filters>
+      <bookmark name="bookmarks" />
+      <component name="columns_controls" />
+      <exportButton name="export_button" />
+      <paging name="listing_paging" />
+  </container>
+  <columns name="spinner_columns">      
+		<selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="order_id" class="Caratlane\NetSuite\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Order Id</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+            </argument>
+        </column>
+         <column name="ns_order_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">NS Order Id</item>
+                </item>
+            </argument>
+        </column>
+         <column name="customer_id" class="Caratlane\NetSuite\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Id</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+            </argument>
+        </column>
+        <column name="ns_customer_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">NS Customer Id</item>
+                </item>
+            </argument>
+        </column>
+        <column name="messages">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Messages</item>
+                </item>
+            </argument>
+        </column>
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Created</item>
+                </item>
+            </argument>
+        </column>
+       <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="50">
+            <settings>
+                <options class="Caratlane\NetSuite\Model\Config\Attribute\Source\Status"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="request_info" class="Caratlane\NetSuite\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">false</item>
+                    <item name="sorting" xsi:type="string">false</item>
+                    <item name="label" xsi:type="string" translate="true">Request Info</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+            </argument>
+        </column>
+        <column name="response_info" class="Caratlane\NetSuite\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">false</item>
+                    <item name="sorting" xsi:type="string">false</item>
+                    <item name="label" xsi:type="string" translate="true">Response Info</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                </item>
+            </argument>
+        </column>
+        
+    </columns>
+</listing>

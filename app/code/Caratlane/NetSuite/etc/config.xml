@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author 18th DigiTech Team
+ * @copyright Copyright (c) 2020 18th DigiTech (https://www.18thdigitech.com)
+ * @package Caratlane_NetSuite
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <netsuite>
+            <general>
+                <enable>1</enable>
+            </general>
+             <cronScheduled>
+                 <enable>1</enable>
+                <netsuite_count_from>30</netsuite_count_from>
+                <api_url>https://7076539-sb1.restlets.api.netsuite.com/app/site/hosting/restlet.nl</api_url>
+                <netsuite_max_attempt>5</netsuite_max_attempt>
+            </cronScheduled>
+            <setCreateShipmentsFrequency>
+                <enable>1</enable>
+                <createshipmentfrequency>* * * * *</createshipmentfrequency>
+            </setCreateShipmentsFrequency>
+            <setTrackShipmentsFrequency>
+                <enable>1</enable>
+                <trackshipmentfrequency>* * * * *</trackshipmentfrequency>
+            </setTrackShipmentsFrequency>
+            <setTrackOrdersFrequency>
+                <enable>1</enable>
+                <trackorderfrequency>* * * * *</trackorderfrequency>
+            </setTrackOrdersFrequency>
+        </netsuite>
+    </default>
+</config>

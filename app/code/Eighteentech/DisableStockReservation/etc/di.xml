@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Delete reserved msi stock after product update -->
+    <type name="Magento\Inventory\Model\SourceItem\Command\Handler\SourceItemsSaveHandler">
+        <plugin name="remove_product_stock_reservations" type="Eighteentech\DisableStockReservation\Plugin\AfterSourceItemsSaveHandler"/>
+    </type>
+
+    <!-- Allow shipment for out of stock products -->
+    <preference for="Magento\InventorySourceDeductionApi\Model\SourceDeductionService" type="Eighteentech\DisableStockReservation\Model\SourceDeductionService"/>
+
+    <!-- Stop stock increments after shipment -->
+    <preference for="Magento\InventoryShipping\Observer\SourceDeductionProcessor" type="Eighteentech\DisableStockReservation\Observer\SourceDeductionProcessor"/>
+</config>

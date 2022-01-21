@@ -1,0 +1,194 @@
+<?php
+ /*$block \Nalli\Weeklyreport\Block\Display*/
+
+if ($block->isCustomerLoggedIn()) {
+    $customeremail = $block->isCustomerLoggedIn()->getEmail();
+    $allowed_user = $block->getConfigValue('weeklyreport/general/allowed_users');
+    $screenusers = array_map('trim', explode(',', $allowed_user));
+    $form_Key = $block->getFormkeyValue();
+    $nternationReportUser = $block->getConfigValue('weeklyreport/general/international_report_allowed_user');
+
+    if (in_array($customeremail, $screenusers)) {
+        ?>        
+
+        <?php
+        $fromdate = $block->getRequest()->getParam('fromdate');
+        $todate = $block->getRequest()->getParam('todate');
+        if (!isset($fromdate) && !isset($todate)) { ?>
+            
+            <div class="datacontainer">
+                <div class="date-select">
+                    <div class="date-select-title" tabindex="1"><?= $block->escapeHtml(__('Reports')) ?></div>
+                    <form id="dateform" method="get" action="<?php $block->getUrl('weeklyreport/index/display'); ?>">
+                        <div class="field">
+                            <label for="fromdate">From:</label>
+                            <input type="date" id="fromdate" name="fromdate"
+                            class="daterange required-entry" onfocus="this.blur()"/>
+                        </div>
+                        <div class="field">
+                            <label for="todate">To:</label>
+                            <input type="date" id="todate" name="todate"
+                            class="daterange required-entry" onfocus="this.blur()"/>
+                        </div>
+                        <div class="field">
+                            <button type="submit"><?= $block->escapeHtml(__('Submit')) ?></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php } else { ?>
+            <div class="datacontainer">
+                <div class="date-select date-select-report">
+                    <div class="date-select-title" tabindex="1"><?= $block->escapeHtml(__('Reports')) ?></div>
+                    <div class="date-select-container monthly">
+                        <div class="date-select-subtitle"><?= $block->escapeHtml(__('Monthly')) ?></div>
+                        <div class="date-select-items">
+                            <div class="date-select-item"><span><?= $block->escapeHtml(__('Jan 2020')) ?></span><a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/monthly', ['from' => '2020-01-01', 'to' => '2020-01-31', 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?>
+                                   </a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Feb 2020')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/monthly', ['from' => '2020-02-01', 'to' => '2020-02-29', 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-select-container weekly">
+                        <div class="date-select-subtitle"><?= $block->escapeHtml(__('Weekly')) ?></div>
+                        <div class="date-select-items">
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Business Overview')) ?></span>
+                                <a href="<?= $block->getUrl('weeklyreport/index/businessoverview', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key]); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('In Stock Data')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/instock', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Sold Products Data')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/soldproducts', ['from' =>$block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>">
+                                    <?=$block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Marketing')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/marketing', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Marketing - States')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/marketingstates', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Widget')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/weeklyevents', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Business Overview - India vs ROW')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/businessoverviewsplit', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Marketing Channels')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/marketingchannel', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-select-container custom">
+                        <div class="date-select-subtitle"><?= "Custom (From: ".$block->getRequest()->getParam('fromdate') .", To: " .$block->getRequest()->getParam('todate') .")"; ?></div>
+                        <div class="date-select-items">
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Current Instock Data')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/custominstock', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Sold Products')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'customsoldproducts', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Uploads')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'customuploads', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Ordergiftmsg')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'ordergiftmsg', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Abandoned Cart Products')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'customabandoned', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Products added to Wishlist')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'customwishlist', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Detect User Agent')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'detectuseragent', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Followed Categories')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'followedcategories', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__('Category Master')) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'categorymaster', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__("Mother's Day Contest")) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'mothersdaycontest', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="date-select-container accounts">
+                        <div class="date-select-subtitle"><?= "Accounts (From: ".$block->getRequest()->getParam('fromdate') .", To: " .$block->getRequest()->getParam('todate') .")"; ?></div>
+                        <div class="date-select-items">
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__("Sales and Products Data")) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'accountssales', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__("Order Tracking")) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'ordertracking', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="date-select-container shoppingads">
+                        <div class="date-select-subtitle"><?= $block->escapeHtml(__("Shopping Ads")) ?></div>
+                        <div class="date-select-items">
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__("India")) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'shoppingadsindia', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a>
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__("USA")) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'shoppingadsusa', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a> 
+                            </div>
+                            <div class="date-select-item">
+                                <span><?= $block->escapeHtml(__("Canada")) ?></span>
+                                <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/customsoldproducts', ['report' => 'shoppingadscanada', 'from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key])); ?>"><?= $block->escapeHtml(__('download')) ?></a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <?php } ?>
+
+    <?php } elseif ($customeremail==$nternationReportUser) {?>
+        <div class="date-select-container custom">
+            <div class="date-select-subtitle"><?= $block->escapeHtml(__("REPORTS")) ?></div>
+            <div class="date-select-items">
+                <div class="date-select-item">
+                    <span><?= $block->escapeHtml(__("Current Instock Data International Products")) ?></span>
+                    <a href="<?= $block->escapeUrl($block->getUrl('weeklyreport/index/custominstock', ['from' => $block->getRequest()->getParam('fromdate'), 'to' => $block->getRequest()->getParam('todate'), 'form_key' => $form_Key,'international' => '1'])); ?>"> <?= $block->escapeHtml(__('download')) ?></a>
+                </div>
+            </div>
+        </div>
+    <?php } else {
+        $block->getRedirectUrl();
+    }
+} else {
+     $block->getRedirectLogin();
+} ?>

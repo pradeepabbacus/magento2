@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+    	 <add id="Commercepundit_Gallery::gallery_demo" title="Gallery" module="Commercepundit_Gallery" action="gallery/index/index" resource="Commercepundit_Gallery::gallery_demo" sortOrder="30"/>
+    </menu>
+</config>

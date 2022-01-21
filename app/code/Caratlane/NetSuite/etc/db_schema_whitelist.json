@@ -1,0 +1,174 @@
+{
+    "netsuite_shipments": {
+        "column": {
+            "entity_id": true,
+            "magento_order_id": true,
+            "netsuite_order_id": true,
+            "fulfillment_id": true,
+            "fulfillment_number": true,
+            "tracking_number": true,
+            "shipping_carrier": true,
+            "shipped_date": true,
+            "shipment_id": true,
+            "delivery_status": true,
+            "invoice_url": true,
+            "status": true,
+            "json_data": true,
+            "messages": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "netsuite_track_orders": {
+        "column": {
+            "entity_id": true,
+            "magento_order_id": true,
+            "netsuite_order_id": true,
+            "order_status": true,
+            "status": true,
+            "json_data": true,
+            "messages": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "netsuite_track_shipments": {
+        "column": {
+            "entity_id": true,
+            "fulfillment_id": true,
+            "fulfillment_number": true,
+            "delivery_status": true,
+            "status": true,
+            "json_data": true,
+            "messages": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "netsuite_orders": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "ns_order_id": true,
+            "customer_id": true,
+            "ns_customer_id": true,
+            "request_info": true,
+            "response_info": true,
+            "status": true,
+            "messages": true,
+            "created_at": true
+        },
+        "index": {
+            "NETSUITE_ORDERS_ORDER_ID": true,
+            "NETSUITE_ORDERS_CUSTOMER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "netsuite_id": true,
+            "netsuite_max_attempt": true,
+            "push_to_netsuite": true,
+            "netsuite_created_at": true,
+            "netsuite_order_status": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "netsuite_id": true,
+            "netsuite_max_attempt": true,
+            "push_to_netsuite": true,
+            "netsuite_created_at": true,
+            "netsuite_order_status": true
+        }
+    },
+    "sales_invoice_grid": {
+        "column": {
+            "ns_fulfillment_id": true,
+            "ns_fulfillment_number": true,
+            "ns_invoice_url": true
+        }
+    },
+    "sales_shipment": {
+        "column": {
+            "ns_fulfillment_id": true,
+            "ns_fulfillment_number": true,
+            "ns_tracking_number": true,
+            "ns_shipping_carrier": true,
+            "ns_shipped_date": true,
+            "ns_delivery_status": true,
+            "ns_invoice_url": true
+        }
+    },
+    "sales_shipment_grid": {
+        "column": {
+            "ns_fulfillment_id": true,
+            "ns_fulfillment_number": true,
+            "ns_tracking_number": true,
+            "ns_shipping_carrier": true,
+            "ns_shipped_date": true,
+            "ns_delivery_status": true,
+            "ns_invoice_url": true
+        }
+    },
+    "sales_invoice": {
+        "column": {
+            "ns_fulfillment_id": true,
+            "ns_fulfillment_number": true,
+            "ns_invoice_url": true
+        }
+    },
+    "sales_shipment_item": {
+        "column": {
+            "ns_expected_delivery_from_date": true,
+            "ns_expected_delivery_to_date": true,
+            "ns_serial_no": true,
+            "ns_certificate": true
+        }
+    },
+    "netsuite_invoice_pdf": {
+        "column": {
+            "entity_id": true,
+            "magento_shipment_id": true,
+            "fulfillment_id": true,
+            "fulfillment_number": true,
+            "invoice_url": true,
+            "status": true,
+            "json_data": true,
+            "messages": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "netsuite_order_update": {
+        "column": {
+            "entity_id": true,
+            "magento_order_id": true,
+            "netsuite_order_id": true,
+            "netsuite_order_status": true,
+            "status": true,
+            "json_data": true,
+            "messages": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "qty_delivered": true,
+            "netsuite_item_status": true
+        }
+    }
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author 18th DigiTech Team
+ * @copyright Copyright (c) 2020 18th DigiTech (https://www.18thdigitech.com)
+ * @package Caratlane_NetSuite
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="netsuite_shipments" resource="default" engine="innodb" comment="NetSuite Shipments">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="magento_order_id" nullable="false" length="30" comment="Increment ID"/>       
+        <column xsi:type="varchar" name="netsuite_order_id" nullable="false" length="30" comment="NetSuite Order ID"/>
+        <column xsi:type="varchar" name="fulfillment_id" nullable="false" length="30" comment="Fulfillment ID" />
+        <column xsi:type="varchar" name="fulfillment_number" nullable="false" length="30" comment="NetSuite Fulfillment Number"/>
+        <column xsi:type="varchar" name="tracking_number" nullable="false" length="30" comment="NetSuite Tracking Number"/>
+        <column xsi:type="varchar" name="shipping_carrier" nullable="false" length="30" comment="NetSuite Shipping Carrier"/>
+        <column xsi:type="varchar" name="shipped_date" nullable="false" length="30" comment="NetSuite Shipped Date"/>
+        <column xsi:type="varchar" name="shipment_id" nullable="false" length="30" comment="Shipment Id"/>
+        <column xsi:type="varchar" name="delivery_status" nullable="false" length="30" comment="NetSuite Delivery Status"/>
+        <column xsi:type="text" name="invoice_url" nullable="false" comment="NetSuite Invoice Url"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="30" comment="Status"/>
+        <column xsi:type="text" name="json_data" nullable="false" comment="Json Data"/>
+        <column xsi:type="text" name="messages" nullable="true" comment="Messages"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+        
+    <table name="netsuite_orders" resource="default" engine="innodb"   comment="NetSuite log table">  
+        <column xsi:type="int" name="entity_id"  unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="order_id" length="255" nullable="false"  comment="Order ID"/>
+        <column xsi:type="varchar" name="ns_order_id" length="11" nullable="false"   comment="NS Order ID"/>
+        <column xsi:type="int" name="customer_id"  unsigned="false" nullable="false" comment="Customer ID"/>
+        <column xsi:type="int" name="ns_customer_id"  nullable="false" identity="false" comment="NS Customer ID"/>
+        <column xsi:type="text" name="request_info"   nullable="false"  comment="Request JSON"/>
+        <column xsi:type="text" name="response_info"   nullable="false"  comment="Response JSON"/>
+        <column xsi:type="varchar" name="status" length="255"  nullable="false"  comment="Status"/>
+        <column xsi:type="text" name="messages"   nullable="false"  comment="Messages"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="true" comment="Created At "/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+       <index referenceId="SALES_ORDER_ENTITY_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <index referenceId="CUSTOMER_ENTITY_ENTITY_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+    </table>
+    <table name="sales_order">
+       <column xsi:type="varchar" name="netsuite_id" nullable="true" length="50" comment="NetSuite ID" />
+       <column xsi:type="int" name="netsuite_max_attempt" default="0" nullable="true" comment="NetSuite Max Attempt" />
+       <column xsi:type="smallint" name="push_to_netsuite" default="0" nullable="true" comment="Push To NetSuite status" />
+       <column xsi:type="datetime" name="netsuite_created_at" on_update="false" nullable="true" comment="NetSuite Created At"/>
+       <column xsi:type="varchar" name="netsuite_order_status" nullable="true" length="100" comment="NetSuite Order Status" />
+   </table>
+   <table name="sales_order_grid">
+       <column xsi:type="varchar" name="netsuite_id" nullable="true" length="50" comment="NetSuite ID" />
+       <column xsi:type="int" name="netsuite_max_attempt" default="0" nullable="true" comment="NetSuite Max Attempt" />
+       <column xsi:type="smallint" name="push_to_netsuite" default="0"  nullable="true" comment="Push To NetSuite status" />
+       <column xsi:type="datetime" name="netsuite_created_at" on_update="false" nullable="true" comment="NetSuite Created At"/>
+       <column xsi:type="varchar" name="netsuite_order_status" nullable="true" length="100" comment="NetSuite Order Status" />
+   </table> 
+   <table name="sales_invoice" resource="default" engine="innodb" comment="Sales Orders">
+        <column xsi:type="varchar" name="ns_fulfillment_id" nullable="false" length="30" comment="NetSuite Fulfillment ID" disabled="true"/>       
+        <column xsi:type="varchar" name="ns_fulfillment_number" nullable="true" comment="NetSuite Fulfillment Number" disabled="true"/>
+        <column xsi:type="text" name="ns_invoice_url" nullable="false" comment="NetSuite Invoice Url" disabled="true"/>
+    </table>
+    <table name="sales_invoice_grid" resource="default" engine="innodb" comment="Sales Orders">
+        <column xsi:type="varchar" name="ns_fulfillment_id" nullable="false" length="30" comment="NetSuite Fulfillment ID" disabled="true"/>       
+        <column xsi:type="varchar" name="ns_fulfillment_number" nullable="true" comment="NetSuite Fulfillment Number" disabled="true"/>
+        <column xsi:type="text" name="ns_invoice_url" nullable="false" comment="NetSuite Invoice Url" disabled="true"/>
+    </table>
+    <table name="sales_shipment" resource="default" engine="innodb" comment="Sales Orders">
+        <column xsi:type="varchar" name="ns_fulfillment_id" nullable="false" length="30" comment="NetSuite Fulfillment ID"/>       
+        <column xsi:type="varchar" name="ns_fulfillment_number" nullable="true" comment="NetSuite Fulfillment Number"/>
+        <column xsi:type="varchar" name="ns_tracking_number" nullable="false" length="30" comment="Netsuite Tracking Number"/>
+        <column xsi:type="varchar" name="ns_shipping_carrier"  nullable="false" length="30" comment="Netsuite Shipping Carrier"/>
+        <column xsi:type="varchar" name="ns_shipped_date"  nullable="false" length="30" comment="Netsuite Shipped Date"/>
+        <column xsi:type="varchar" name="ns_delivery_status"  nullable="false" length="30" comment="Netsuite Delivery Status"/>
+        <column xsi:type="text" name="ns_invoice_url"  nullable="false" comment="Netsuite Invoice Url"/>
+    </table>
+    <table name="sales_shipment_grid" resource="default" engine="innodb" comment="Sales Orders">
+        <column xsi:type="varchar" name="ns_fulfillment_id" nullable="false" length="30" comment="NetSuite Fulfillment ID"/>       
+        <column xsi:type="varchar" name="ns_fulfillment_number" nullable="true" comment="NetSuite Fulfillment Number"/>
+        <column xsi:type="varchar" name="ns_tracking_number" nullable="false" length="30" comment="Netsuite Tracking Number"/>
+        <column xsi:type="varchar" name="ns_shipping_carrier"  nullable="false" length="30" comment="Netsuite Shipping Carrier"/>
+        <column xsi:type="varchar" name="ns_shipped_date"  nullable="false" length="30" comment="Netsuite Shipped Date"/>
+        <column xsi:type="varchar" name="ns_delivery_status"  nullable="false" length="30" comment="Netsuite Delivery Status"/>
+        <column xsi:type="text" name="ns_invoice_url"  nullable="false" comment="Netsuite Invoice Url"/>
+    </table>
+    <table name="sales_shipment_item" resource="default" engine="innodb" comment="Sales Orders Item">
+        <column xsi:type="varchar" name="ns_expected_delivery_from_date" nullable="false" length="255" comment="Expected Delivery From Date"/>
+        <column xsi:type="varchar" name="ns_expected_delivery_to_date" nullable="false" length="255" comment="Expected Delivery To Date"/>
+        <column xsi:type="varchar" name="ns_serial_no" nullable="false" length="255" comment="Serial No"/>
+        <column xsi:type="varchar" name="ns_certificate" nullable="false" length="255" comment="Certificate"/>
+    </table>
+    <table name="netsuite_invoice_pdf" resource="default" engine="innodb" comment="NetSuite Invoice Pdf">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="magento_shipment_id" nullable="false" length="255" comment="Shipment ID"/>
+        <column xsi:type="varchar" name="fulfillment_id" nullable="false" length="255" comment="Fulfillment ID" />
+        <column xsi:type="varchar" name="fulfillment_number" nullable="false" length="255" comment="NetSuite Fulfillment Number"/>
+        <column xsi:type="text" name="invoice_url" nullable="false" comment="NetSuite Invoice Url"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="30" comment="Status"/>
+        <column xsi:type="text" name="json_data" nullable="false" comment="Json Data"/>
+        <column xsi:type="text" name="messages" nullable="true" comment="Messages"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="netsuite_order_update" resource="default" engine="innodb" comment="NetSuite Orders Update">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="magento_order_id" nullable="false" length="255" comment="Increment ID"/>       
+        <column xsi:type="varchar" name="netsuite_order_id" nullable="false" length="255" comment="NetSuite Order ID"/>
+        <column xsi:type="varchar" name="netsuite_order_status" nullable="false" length="100" comment="NetSuite Order Status"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="100" comment="Status"/>
+        <column xsi:type="text" name="json_data" nullable="false" comment="Json Data"/>
+        <column xsi:type="text" name="messages" nullable="true" comment="Messages"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="sales_order_item">
+       <column xsi:type="varchar" name="qty_delivered" nullable="true" length="100" comment="Qty Delivered" />
+       <column xsi:type="varchar" name="netsuite_item_status" nullable="true" length="100" comment="NetSuite Item Status" />
+   </table>
+</schema>

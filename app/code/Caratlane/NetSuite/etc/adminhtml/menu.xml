@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author 18th DigiTech Team
+ * @copyright Copyright (c) 2020 18th DigiTech (https://www.18thdigitech.com)
+ * @package Caratlane_NetSuite
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Caratlane_NetSuite::netsuite" title="NetSuite" translate="title" module="Caratlane_NetSuite" sortOrder="60" resource="Caratlane_NetSuite::netsuite"/>
+
+        <add id="Caratlane_NetSuite::monitoring" title="Monitoring" translate="title" module="Caratlane_NetSuite" sortOrder="10" parent="Caratlane_NetSuite::netsuite" resource="Caratlane_NetSuite::netsuite"/>
+       
+        <add id="Caratlane_NetSuite::log" title="Orders Logs" module="Caratlane_NetSuite" sortOrder="20" parent="Caratlane_NetSuite::monitoring" action="caratlane/netsuite/index/" resource="Caratlane_NetSuite::log"/>
+
+        <add id="Caratlane_NetSuite::createshipment" title="Shipment Logs" module="Caratlane_NetSuite" sortOrder="30" parent="Caratlane_NetSuite::monitoring" action="caratlane/netsuite/createshipments/" resource="Caratlane_NetSuite::createshipment"/>
+
+        <add id="Caratlane_NetSuite::orderupdate" title="Order Update Logs" module="Caratlane_NetSuite" sortOrder="31" parent="Caratlane_NetSuite::monitoring" action="caratlane/netsuite/orderupdate/" resource="Caratlane_NetSuite::orderupdate"/>
+
+        <add id="Caratlane_NetSuite::updateinvoicepdf" title="Update Invoice PDF" module="Caratlane_NetSuite" sortOrder="32" parent="Caratlane_NetSuite::monitoring" action="caratlane/netsuite/updateinvoicepdf/" resource="Caratlane_NetSuite::updateinvoicepdf"/>
+
+        <add id="Caratlane_NetSuite::logview" title="Debug Log Viewer" module="Caratlane_NetSuite" sortOrder="60" parent="Caratlane_NetSuite::monitoring" action="caratlane/logviewer/index" resource="Caratlane_NetSuite::logview"/>
+
+        <add id="Caratlane_NetSuite::settings" title="Settings" translate="title" module="Caratlane_NetSuite" sortOrder="80" parent="Caratlane_NetSuite::netsuite" resource="Caratlane_NetSuite::netsuite"/>
+        <add id="Caratlane_NetSuite::config" title="Configuration" module="Caratlane_NetSuite" sortOrder="10" parent="Caratlane_NetSuite::settings" action="adminhtml/system_config/edit/section/netsuite" resource="Caratlane_NetSuite::config"/>
+    </menu>
+</config>

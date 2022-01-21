@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Module declaration file
+ *
+ * @author 18th Digitech<info@18thdigitech.com>
+ * @package Eighteentech_DisableStockReservation
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Eighteentech_DisableStockReservation" setup_version="1.0.0">
+        <module name="Jbmetro_StockSync"/>
+    </module>
+</config>
