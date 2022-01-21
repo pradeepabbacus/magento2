@@ -98,7 +98,7 @@ class UpdatePdf implements UpdateInvoicePdfInterface
 
     public function updateInvoicePdf()
     {
-
+        //Added line on dev
         $responseData = [];
         $responseData['success'] = NetSuiteConstants::NETSUITE_DEFAULT_ERROR_CODE;
         $responseData['message'] = NetSuiteConstants::NETSUITE_DISABLE_MESSAGE;
