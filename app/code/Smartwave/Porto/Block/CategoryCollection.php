@@ -1,4 +1,5 @@
 <?php
+//Commit one
 namespace Smartwave\Porto\Block;
 
 class CategoryCollection extends \Magento\Framework\View\Element\Template
