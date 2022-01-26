@@ -1,5 +1,6 @@
 <?php
 //Commit two
+// secong commit
 namespace Smartwave\Porto\Block;
 
 class RickSnippet extends \Magento\Framework\View\Element\Template {
